@@ -48,6 +48,9 @@
       function draw() {
         canvas.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
         player.draw();
+        playerBullets.forEach(function(bullet) {
+    		bullet.draw();
+  		});
       }
       
 
@@ -65,6 +68,14 @@
       }
 
       player.x = player.x.clamp(0, CANVAS_WIDTH - player.width);
+
+      playerBullets.forEach(function(bullet) {
+	  	bullet.update();
+	  });
+
+	  playerBullets = playerBullets.filter(function(bullet) {
+    	return bullet.active;
+  	  });
     }
 
     player.shoot = function() {
