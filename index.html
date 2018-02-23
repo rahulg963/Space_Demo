@@ -98,6 +98,7 @@
 
     player.shoot = function() {
       console.log("Pew pew");
+      Sound.play("shoot");
     };  
 
     var playerBullets = [];
@@ -195,6 +196,7 @@
       };
 
       I.explode = function() {
+      	  Sound.play("explode");
           this.active = false;
       };
 
