@@ -175,6 +175,12 @@
         canvas.fillRect(this.x, this.y, this.width, this.height);
       };
 
+      I.sprite = Sprite("enemy");
+
+ 	  I.draw = function() {
+	    this.sprite.draw(canvas, this.x, this.y);
+	  };
+
       I.update = function() {
         I.x += I.xVelocity;
         I.y += I.yVelocity;
@@ -187,6 +193,12 @@
       };
 
       return I;
+    };
+
+    player.sprite = Sprite("player");
+
+    player.draw = function() {
+    	this.sprite.draw(canvas, this.x, this.y);
     };
      
     </script>
