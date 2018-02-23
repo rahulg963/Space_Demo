@@ -92,6 +92,8 @@
 	  playerBullets = playerBullets.filter(function(bullet) {
     	return bullet.active;
   	  });
+
+  	  handleCollisions();
     }
 
     player.shoot = function() {
@@ -192,7 +194,16 @@
         I.active = I.active && I.inBounds();
       };
 
+      I.explode = function() {
+          this.active = false;
+      };
+
+
       return I;
+    };
+
+    player.explode = function() {
+      this.active = false;
     };
 
     player.sprite = Sprite("player");
@@ -200,7 +211,32 @@
     player.draw = function() {
     	this.sprite.draw(canvas, this.x, this.y);
     };
+
+    function collides(a, b) {
+      return a.x < b.x + b.width &&
+             a.x + a.width > b.x &&
+             a.y < b.y + b.height &&
+             a.y + a.height > b.y;
+    }
      
+    function handleCollisions() {
+      playerBullets.forEach(function(bullet) {
+        enemies.forEach(function(enemy) {
+          if (collides(bullet, enemy)) {
+            enemy.explode();
+            bullet.active = false;
+          }
+        });
+      });
+
+      enemies.forEach(function(enemy) {
+        if (collides(enemy, player)) {
+          enemy.explode();
+          player.explode();
+        }
+      });
+    }
+
     </script>
   
   </body>
